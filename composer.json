@@ -1,0 +1,21 @@
+{
+  "name": "actinity/stage-login",
+  "require": {
+    "php": "^8.2"
+  },
+  "require-dev": {
+    "orchestra/testbench": "^8.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Actinity\\StageLogin\\": "src"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Actinity\\StageLogin\\StageLoginServiceProvider"
+      ]
+    }
+  }
+}
