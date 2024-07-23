@@ -18,10 +18,7 @@ class StageLoginMiddleware
             !$request->cookie('stage_login') &&
             $request->getPathInfo() !== $url
         ) {
-            if(!$request->cookie('redirect_after_stage')) {
-                Cookie::queue('redirect_after_stage',$request->url());
-            }
-
+            Cookie::queue('redirect_after_stage',$request->url());
             return redirect($url);
         }
 
