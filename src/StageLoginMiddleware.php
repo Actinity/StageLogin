@@ -13,8 +13,10 @@ class StageLoginMiddleware
     {
         $url = route(name: 'stage-login.start', absolute: false);
 
+        $enabled = config('stage-login') ? config('stage-login.enabled') : app()->environment('stage');
+
         if(
-            app()->environment('stage') &&
+            $enabled &&
             !$request->cookie('stage_login') &&
             $request->getPathInfo() !== $url
         ) {
