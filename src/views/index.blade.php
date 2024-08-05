@@ -77,7 +77,7 @@
             "{{ config('stage-login.prefix') }}"
         </div>
 
-        <form autocomplete="off" method="post" action="{{ route('stage-login.store') }}">
+        <form autocomplete="off" method="post" action="{{ config('stage-login.host_path','').route('stage-login.store',[],false) }}">
             <div style="margin: 20px auto">
                 <input required autofocus type="text" name="code" />
             </div>
