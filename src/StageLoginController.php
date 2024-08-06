@@ -16,7 +16,7 @@ class StageLoginController
         return view('stage-login::index');
     }
 
-    public function store(Request $request)
+    public function verify(Request $request)
     {
         $this->validate($request,[
             'code' => [
@@ -30,11 +30,8 @@ class StageLoginController
             ]
         ]);
 
-        $url = $request->cookie('redirect_after_stage') ?: '/';
-
-        Cookie::queue(cookie()->forget('redirect_after_stage'));
         Cookie::queue(cookie()->forever('stage_login',1));
 
-        return redirect($url);
+        return response('',200);
     }
 }

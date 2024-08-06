@@ -5,6 +5,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
+    <meta name="path" content="{{ config('stage-login.host_path').route('stage-login.verify',[],false) }}" />
     <title>{{ config('stage-login.title') }}</title>
 
     <style>
@@ -51,14 +52,16 @@
             border-radius: 10px;
         }
 
-        .error {
+        #error {
             color: #f00;
-            margin-bottom: 20px;
+            margin-top: 20px;
+            display: none;
         }
         .instructions {
             line-height: 1.4rem;
         }
     </style>
+
 
 </head>
 <body>
@@ -68,26 +71,50 @@
         {{ config('stage-login.title') }}
     </header>
     <main>
-        @error('code')
-            <div class="error">{{ $message }}</div>
-        @enderror
         <div class="instructions">
             If you are authorised to access this application,
             please enter the access code that begins with
             "{{ config('stage-login.prefix') }}"
         </div>
 
-        <form autocomplete="off" method="post" action="{{ config('stage-login.host_path','').route('stage-login.store',[],false) }}">
+        <form autocomplete="off" method="post" action="." id="form">
             <div style="margin: 20px auto">
                 <input required autofocus type="text" name="code" />
             </div>
 
+            {{ csrf_field() }}
+
             <button>Continue</button>
 
-            {{ csrf_field() }}
+            <div id="error">Sorry, that code was not recognised</div>
         </form>
     </main>
 
 </div>
+<script>
+    let form = document.getElementById('form');
+
+	async function submit() {
+        let path = document.querySelector('meta[name=path]').content || '';
+
+		let response = await fetch(path,{
+			method: 'post',
+            headers: {'X-Requested-With': 'XMLHttpRequest'},
+            body: new FormData(form)
+        })
+
+        if(!response.ok) {
+			document.getElementById('error').style.display = 'block';
+			return;
+        }
+
+		window.location.reload();
+	}
+
+	form.addEventListener('submit',function(e) {
+		e.preventDefault();
+		submit();
+    })
+</script>
 </body>
 </html>

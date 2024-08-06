@@ -16,6 +16,6 @@ Route::prefix(config('stage-login.route'))
         ->name('stage-login.start');
 
     Route::middleware('throttle:stage-login')
-        ->post('',[StageLoginController::class,'store'])
-        ->name('stage-login.store');
+        ->post('',[StageLoginController::class,'verify'])
+        ->name('stage-login.verify');
 });
