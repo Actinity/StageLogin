@@ -7,6 +7,7 @@
 
     <meta name="path" content="{{ config('stage-login.host_path').route('stage-login.verify',[],false) }}" />
     <title>{{ config('stage-login.title') }}</title>
+    <meta name="robots" content="noindex,nofollow">
 
     <style>
         html,body {
