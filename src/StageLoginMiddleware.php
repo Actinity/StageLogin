@@ -17,7 +17,7 @@ class StageLoginMiddleware
             $enabled &&
             (
                 !$request->cookie('stage_login') ||
-                $request->cookie('stage_login') !== config('stage_login.code')
+                $request->cookie('stage_login') !== config('stage-login.code')
             )
         ) {
             return response()->view('stage-login::index');
