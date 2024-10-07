@@ -30,7 +30,7 @@ class StageLoginController
             ]
         ]);
 
-        Cookie::queue(cookie()->forever('stage_login',1));
+        Cookie::queue(cookie()->forever('stage_login',$request->get('code')));
 
         return response('',200);
     }

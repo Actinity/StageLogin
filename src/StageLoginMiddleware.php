@@ -13,7 +13,13 @@ class StageLoginMiddleware
     {
         $enabled = config('stage-login') ? config('stage-login.enabled') : app()->environment('stage');
 
-        if($enabled && !$request->cookie('stage_login')) {
+        if(
+            $enabled &&
+            (
+                !$request->cookie('stage_login') ||
+                $request->cookie('stage_login') !== config('stage_login.code')
+            )
+        ) {
             return response()->view('stage-login::index');
         }
 
